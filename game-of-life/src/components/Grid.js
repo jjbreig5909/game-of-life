@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Slider from '@material-ui/core/Slider'
 import produce from 'immer'; //Immer is used for "double-buffering", see "produce" function below
+import './Grid.css';
 
 const initialSize = { 
   numRows: 25,
@@ -129,7 +130,8 @@ function Grid() {
 
       </div>
       <div className = 'slider'>
-        <Slider 
+        Speed Slider
+        <Slider
         defaultValue={300}
         onChange = {handleSliderChange}
         aria-labelledby="discrete-slider-small-steps"
@@ -146,7 +148,8 @@ function Grid() {
       >
         {grid.map((rows, i) =>
           rows.map((col, k) => (
-            <div
+            <div 
+              className = "grid-cells"
               key={`${i}-${k}`}
               onClick={() => {
                 const newGrid = produce(grid, (gridCopy) => {
@@ -167,7 +170,7 @@ function Grid() {
                   : grid[i][k] && sum >= 0
                   ? 'red'
                   : undefined,
-                border: 'solid 1.5px black',
+                border: 'solid 1px black',
               }}
             />
           ))
