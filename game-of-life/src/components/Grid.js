@@ -86,7 +86,43 @@ function Grid() {
 
   return (
     <div className = 'container'>
-        <div className = 'buttons'>
+      <div className = 'grid'
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${numCols},15px)`,
+        }}
+      >
+        {grid.map((rows, i) =>
+          rows.map((col, k) => (
+            <div 
+              className = "grid-cells"
+              key={`${i}-${k}`}
+              onClick={() => {
+                const newGrid = produce(grid, (gridCopy) => {
+                  gridCopy[i][k] = grid[i][k] ? 0 : 1;
+                });
+                setGrid(newGrid);
+              }}
+              style={{ 
+                width: 14,
+                height: 15,
+                backgroundColor:
+                grid[i][k] && sum > 125
+                  ? 'green'
+                  : grid[i][k] && sum > 85
+                  ? 'blue'
+                  : grid[i][k] && sum > 50
+                  ? 'purple'
+                  : grid[i][k] && sum >= 0
+                  ? 'red'
+                  : undefined,
+                border: 'solid 1px black',
+              }}
+            />
+          ))
+        )}
+      </div>
+      <div className = 'buttons'>
       <button
         onClick={() => {
           setrunning(!running);
@@ -126,9 +162,6 @@ function Grid() {
         Reset
       </button>
       </div>
-      <div className = 'spacer'>
-
-      </div>
       <div className = 'slider'>
         Speed Slider
         <Slider
@@ -139,42 +172,6 @@ function Grid() {
         max={1000}
         valueLabelDisplay="auto"
         />
-      </div>
-      <div className = 'grid'
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${numCols},15px)`,
-        }}
-      >
-        {grid.map((rows, i) =>
-          rows.map((col, k) => (
-            <div 
-              className = "grid-cells"
-              key={`${i}-${k}`}
-              onClick={() => {
-                const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[i][k] = grid[i][k] ? 0 : 1;
-                });
-                setGrid(newGrid);
-              }}
-              style={{ 
-                width: 14,
-                height: 15,
-                backgroundColor:
-                grid[i][k] && sum > 125
-                  ? 'green'
-                  : grid[i][k] && sum > 85
-                  ? 'blue'
-                  : grid[i][k] && sum > 50
-                  ? 'purple'
-                  : grid[i][k] && sum >= 0
-                  ? 'red'
-                  : undefined,
-                border: 'solid 1px black',
-              }}
-            />
-          ))
-        )}
       </div>
         <p className='info'> Generation: {generation}</p>
         <p className='info'> Cell Population: {sum}</p>

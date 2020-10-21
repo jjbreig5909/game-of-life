@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 
 import Grid from "./components/Grid.js";
+import Header from "./components/Header.js";
 
 
 function App() {
   return (
     <div className="App">
+      <Header />
       <Grid />
     </div>
   );
