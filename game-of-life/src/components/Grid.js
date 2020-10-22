@@ -4,11 +4,6 @@ import Button from '@material-ui/core/Button';
 import produce from 'immer'; //Immer is used for "double-buffering", see "produce" function below
 import './Grid.css';
 
-const initialSize = { 
-  numRows: 25,
-  numCols: 25,
-}
-
 const possibleNeighbors = [
   [0, 1],
   [0, -1],
@@ -22,25 +17,36 @@ const possibleNeighbors = [
 
 function Grid() {
 
-  const [running, setrunning] = useState(false);
+  const [running, setRunning] = useState(false);
   const [generation, setGeneration] = useState(0);
-  const [sum, setSum] = useState(0);
+  const [population, setPopulation] = useState(0);
   const runningRef = useRef(running);
   runningRef.current = running;
   const timeRef = useRef(300);
-  const numRows = 25;
-  const numCols = 25;
+  const gridRows = 25;
+  const gridColumns = 25;
   const [grid, setGrid] = useState(initialState);
 
-  function initialState() {
+  function initialState() { // Function sets the initial grid size.
     const rows = [];
-    for (let i = 0; i < numRows; i++) {
-      rows.push(Array.from(Array(numCols), () => 0));
+    for (let i = 0; i < gridRows; i++) {
+      rows.push(Array.from(Array(gridColumns), () => 0));
     }
     return rows;
   }
 
-  function handleSliderChange(e, newValue){
+  const marks = [
+    {
+      value: 0,
+    label: 'Slowest'
+    },
+    {
+      value: 1000,
+      label: 'Fastest'
+    }
+  ]
+
+  function handleSliderChange(e, newValue){ //Function handles the user adjustible slider
     timeRef.current = 1000-newValue;
   }
 
@@ -54,13 +60,13 @@ function Grid() {
       let newGen = false;
       newGen = false;
       return produce(g, (gridCopy) => { //Using immer for double buffering
-        for (let i = 0; i < numRows; i++) { //These for loops iterate through each cell of the grid
-          for (let k = 0; k < numCols; k++) {
+        for (let i = 0; i < gridRows; i++) { //These for loops iterate through each cell of the grid
+          for (let k = 0; k < gridColumns; k++) {
             let neighbors = 0;
             possibleNeighbors.forEach(([x, y]) => { //Checking for status of neighbors for each cell, board wraps around edges
-              const newI = (i + x +numRows) % numRows; 
-              const newK = (k + y + numCols) % numCols;
-              if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) {
+              const newI = (i + x +gridRows) % gridRows; 
+              const newK = (k + y + gridColumns) % gridColumns;
+              if (newI >= 0 && newI < gridRows && newK >= 0 && newK < gridColumns) {
                 neighbors += g[newI][newK];
               }
             });
@@ -75,7 +81,7 @@ function Grid() {
         if(newGen) {
           setGeneration((num) => (num + 1)); //Iterating each generation number
         }
-        setSum(
+        setPopulation(
           gridCopy.flat().reduce((total, cell) => { //Adding up the cell populations
             return total + cell
           })
@@ -90,7 +96,7 @@ function Grid() {
       <div className = 'grid'
         style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${numCols},20px)`,
+          gridTemplateColumns: `repeat(${gridColumns},20px)`,
         }}
       >
         {grid.map((rows, i) =>
@@ -108,14 +114,14 @@ function Grid() {
                 width: 19,
                 height: 20,
                 backgroundColor:
-                grid[i][k] && sum > 125
+                grid[i][k] && population > 125
                   ? '#021859'
-                  : grid[i][k] && sum > 85
+                  : grid[i][k] && population > 85
                   ? '#032CA6'
-                  : grid[i][k] && sum > 50
+                  : grid[i][k] && population > 50
                   ? '#0433BF'
-                  : grid[i][k] && sum >= 0
-                  ? '#0B9ED9'
+                  : grid[i][k] && population >= 0
+                  ? '#F25CA2'
                   : undefined,
                 border: 'solid 1px black',
               }}
@@ -128,7 +134,7 @@ function Grid() {
         color = "primary"
         variant="contained"
         onClick={() => {
-          setrunning(!running);
+          setRunning(!running);
           if (!running) {
             runningRef.current = true;
             playGame();
@@ -142,13 +148,13 @@ function Grid() {
         variant="outlined"
         onClick={() => {
           const rows = [];
-          for (let i = 0; i < numRows; i++) {
+          for (let i = 0; i < gridRows; i++) {
             rows.push(
-              Array.from(Array(numCols), () => (Math.random() > 0.75 ? 1 : 0))
+              Array.from(Array(gridColumns), () => (Math.random() > 0.75 ? 1 : 0))
             );
           }
           setGrid(rows);
-          setSum(
+          setPopulation(
             grid.flat().reduce((total, cell) => { //Adding up the cell populations
               return total + cell
             })
@@ -158,14 +164,14 @@ function Grid() {
         Random
       </Button>
       <Button
-        color= {sum===0 ? "disabled" : "secondary"}
+        color= {population===0 ? "disabled" : "secondary"}
         variant = "contained"
         onClick={() => {
           setGrid(initialState);
           setGeneration(0);
-          setSum(0);
+          setPopulation(0);
           if(running){
-            setrunning(!running)
+            setRunning(!running)
           }
           
         }}
@@ -174,19 +180,20 @@ function Grid() {
       </Button>
       </div>
       <div className = 'slider'>
-        Speed Slider
+        Simulation Speed
         <Slider
-        defaultValue={300}
+        defaultValue={500}
         onChange = {handleSliderChange}
         aria-labelledby="discrete-slider-small-steps"
         min={1}
         max={1000}
+        marks={marks}
         valueLabelDisplay="auto"
         />
       </div>
         <div className = 'cell-info'>
           <p> Generation: {generation}</p>
-          <p> Cell Population: {sum}</p>
+          <p> Cell Population: {population}</p>
         </div>
     </div>
   );
