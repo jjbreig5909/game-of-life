@@ -1,5 +1,5 @@
 .grid-cell{
-    width: 14;
+    width: 15;
     height: 15;
     border: 'solid 1px black';
 }
@@ -13,4 +13,16 @@
 .slider{
     width: 33%;
     margin: 50px auto
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    width: 60%;
+}
+
+.cell-info{
+    margin: auto;
+    text-align: center;
 }

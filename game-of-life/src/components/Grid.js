@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import Slider from '@material-ui/core/Slider'
+import Slider from '@material-ui/core/Slider';
+import Button from '@material-ui/core/Button';
 import produce from 'immer'; //Immer is used for "double-buffering", see "produce" function below
 import './Grid.css';
 
@@ -89,7 +90,7 @@ function Grid() {
       <div className = 'grid'
         style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${numCols},15px)`,
+          gridTemplateColumns: `repeat(${numCols},20px)`,
         }}
       >
         {grid.map((rows, i) =>
@@ -104,17 +105,17 @@ function Grid() {
                 setGrid(newGrid);
               }}
               style={{ 
-                width: 14,
-                height: 15,
+                width: 19,
+                height: 20,
                 backgroundColor:
                 grid[i][k] && sum > 125
-                  ? 'green'
+                  ? '#021859'
                   : grid[i][k] && sum > 85
-                  ? 'blue'
+                  ? '#032CA6'
                   : grid[i][k] && sum > 50
-                  ? 'purple'
+                  ? '#0433BF'
                   : grid[i][k] && sum >= 0
-                  ? 'red'
+                  ? '#0B9ED9'
                   : undefined,
                 border: 'solid 1px black',
               }}
@@ -123,7 +124,9 @@ function Grid() {
         )}
       </div>
       <div className = 'buttons'>
-      <button
+      <Button
+        color = "primary"
+        variant="contained"
         onClick={() => {
           setrunning(!running);
           if (!running) {
@@ -133,8 +136,10 @@ function Grid() {
         }}
       >
         {!runningRef.current ? 'Start' : 'Stop'}
-      </button>
-      <button
+      </Button>
+      <Button
+        color = "secondary"
+        variant="outlined"
         onClick={() => {
           const rows = [];
           for (let i = 0; i < numRows; i++) {
@@ -151,16 +156,22 @@ function Grid() {
         }}
       >
         Random
-      </button>
-      <button
+      </Button>
+      <Button
+        color= {sum===0 ? "disabled" : "secondary"}
+        variant = "contained"
         onClick={() => {
           setGrid(initialState);
           setGeneration(0);
           setSum(0);
+          if(running){
+            setrunning(!running)
+          }
+          
         }}
       >
         Reset
-      </button>
+      </Button>
       </div>
       <div className = 'slider'>
         Speed Slider
@@ -173,8 +184,10 @@ function Grid() {
         valueLabelDisplay="auto"
         />
       </div>
-        <p className='info'> Generation: {generation}</p>
-        <p className='info'> Cell Population: {sum}</p>
+        <div className = 'cell-info'>
+          <p> Generation: {generation}</p>
+          <p> Cell Population: {sum}</p>
+        </div>
     </div>
   );
 }
