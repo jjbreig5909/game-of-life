@@ -114,12 +114,8 @@ function Grid() {
                 width: 19,
                 height: 20,
                 backgroundColor:
-                grid[i][k] && population > 125
+                grid[i][k] && population > 100
                   ? '#021859'
-                  : grid[i][k] && population > 85
-                  ? '#032CA6'
-                  : grid[i][k] && population > 50
-                  ? '#0433BF'
                   : grid[i][k] && population >= 0
                   ? '#F25CA2'
                   : undefined,

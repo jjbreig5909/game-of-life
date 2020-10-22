@@ -1,7 +1,15 @@
-.bio-container{
+.bio-title{
+    margin: 20px auto;
+    text-align: center;
+}
+
+.bio-text{
     padding: 20px;
 }
 
-.bio-title{
+.bio-image{
+    display: flex;
+    justify-content: center;
+    width: 50%;
     margin: 20px auto;
 }
