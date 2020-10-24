@@ -12,7 +12,7 @@ function App() {
         <NavMenu />
         <Switch>
           <Route exact path ="/" component ={Grid} />
-          <Route exact path ="/rules" component ={Rules} />
+          <Route exact path ="/about" component ={Rules} />
         </Switch>
       </div>
     </Router>

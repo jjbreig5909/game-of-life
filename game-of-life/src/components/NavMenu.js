@@ -25,7 +25,7 @@ function NavMenu() {
             <div id="nav-menu"
             className = {open ? "open" : ""}>
             <Link
-            className="nav-link home-link"
+            className="nav-link"
             exact
             to="/"
             >Play
@@ -33,7 +33,7 @@ function NavMenu() {
             <Link
             className="nav-link"
             exact
-            to="/rules"
+            to="/about"
             >About
             </Link>
             </div>

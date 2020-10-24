@@ -18,6 +18,7 @@ function Rules() {
                     <li>All other live cells die in the next generation. Similarly, all other dead cells stay dead.</li>
                 </ol>
             </Typography>
+            <Typography className="rules-text" variant="body1">Sound fun? Give it a try and play the game!</Typography>
         </div>
     )
 }

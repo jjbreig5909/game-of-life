@@ -95,6 +95,10 @@ function Grid() {
   return (
     <div className = 'container'>
       <Typography variant="h4"><div className="rules-title">The Game of Life</div></Typography>
+      <div className = 'cell-info'>
+          <p> Generation: {generation}</p>
+          <p> Cell Population: {population}</p>
+        </div>
       <div className = 'grid'
         style={{
           display: 'grid',
@@ -189,10 +193,6 @@ function Grid() {
         valueLabelDisplay="auto"
         />
       </div>
-        <div className = 'cell-info'>
-          <p> Generation: {generation}</p>
-          <p> Cell Population: {population}</p>
-        </div>
     </div>
   );
 }

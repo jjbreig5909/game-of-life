@@ -4,12 +4,13 @@
 }
 
 .rules-title{
-    margin: 40px 0px;
+    margin: 0px 0px;
     text-align: center;
 }
 
 .rules-text{
     margin-bottom: 20px;
+    padding: 20px;
 }
 
 .bio-title{
