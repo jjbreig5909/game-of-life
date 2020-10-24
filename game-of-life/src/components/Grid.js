@@ -104,9 +104,9 @@ function Grid() {
             <div 
               className = "grid-cells"
               key={`${i}-${k}`}
-              onClick={() => {
+              onClick={() => {  //Allows users to click grid squares and set them as on or off
                 const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[i][k] = grid[i][k] ? 0 : 1;
+                  gridCopy[i][k] = grid[i][k] ? 0 : 1; //Ternary setting on or off at coordinates
                 });
                 setGrid(newGrid);
               }}

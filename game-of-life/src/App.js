@@ -5,11 +5,13 @@ import Grid from "./components/Grid.js";
 import Header from "./components/Header.js";
 import Rules from "./components/Rules.js";
 import Bio from "./components/Bio.js";
+import NavMenu from './components/NavMenu.js';
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <NavMenu />
         <Header />
         <Switch>
           <Route exact path ="/" component ={Grid} />
