@@ -11,15 +11,33 @@ function NavMenu() {
     }
 
     return (
-        <div id="nav-icon2"
-        className = {open ? "open" : ""}
-        onClick = {handleClick}>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <div className = "nav-container">
+            <div id="nav-icon2"
+            className = {open ? "open" : ""}
+            onClick = {handleClick}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div id="nav-menu"
+            className = {open ? "open" : ""}>
+            <Link
+            className="nav-link home-link"
+            exact
+            to="/"
+            >Play
+            </Link>
+            <Link
+            className="nav-link"
+            exact
+            to="/rules"
+            >About
+            </Link>
+            </div>
+            
         </div>
     )
 }

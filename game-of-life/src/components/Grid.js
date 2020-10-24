@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import produce from 'immer'; //Immer is used for "double-buffering", see "produce" function below
 import './Grid.css';
 
@@ -93,6 +94,7 @@ function Grid() {
 
   return (
     <div className = 'container'>
+      <Typography variant="h4"><div className="rules-title">The Game of Life</div></Typography>
       <div className = 'grid'
         style={{
           display: 'grid',
