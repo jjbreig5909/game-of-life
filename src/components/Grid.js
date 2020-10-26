@@ -17,6 +17,7 @@ const possibleNeighbors = [
 ];
 
 function Grid() {
+  
   // Declaring all of the variables here:
   const [running, setRunning] = useState(false);
   const [generation, setGeneration] = useState(0);
@@ -51,11 +52,14 @@ function Grid() {
     timeRef.current = 1000-newValue;
   }
 
-  function handleGridRowChange(e, newGridRowSize){
-    console.log("value changed")
-    setGridRows(newGridRowSize);
-    setGrid(initialState)
-  }
+
+  /// Code for handling Grid size Changes in the future
+  // function handleGridRowChange(e, newGridRowSize){
+  //   console.log("value changed")
+  //   setGridRows(newGridRowSize);
+  //   setGrid(initialState)
+  // }
+  ///
 
   
   
