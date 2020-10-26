@@ -17,15 +17,15 @@ const possibleNeighbors = [
 ];
 
 function Grid() {
-
+  // Declaring all of the variables here:
   const [running, setRunning] = useState(false);
   const [generation, setGeneration] = useState(0);
   const [population, setPopulation] = useState(0);
   const runningRef = useRef(running);
   runningRef.current = running;
-  const timeRef = useRef(300);
-  const gridRows = 25;
-  const gridColumns = 25;
+  const timeRef = useRef(500);
+  const [gridRows, setGridRows] = useState(25);
+  const [gridColumns, setGridColumns] = useState(25);
   const [grid, setGrid] = useState(initialState);
 
   function initialState() { // Function sets the initial grid size.
@@ -36,7 +36,7 @@ function Grid() {
     return rows;
   }
 
-  const marks = [
+  const marks = [ //Variable needed for slider values
     {
       value: 0,
     label: 'Slowest'
@@ -49,6 +49,12 @@ function Grid() {
 
   function handleSliderChange(e, newValue){ //Function handles the user adjustible slider
     timeRef.current = 1000-newValue;
+  }
+
+  function handleGridRowChange(e, newGridRowSize){
+    console.log("value changed")
+    setGridRows(newGridRowSize);
+    setGrid(initialState)
   }
 
   

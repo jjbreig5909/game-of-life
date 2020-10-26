@@ -26,6 +26,7 @@ function NavMenu() {
             className = {open ? "open" : ""}>
             <Link
             className="nav-link"
+            onClick = {handleClick}
             exact
             to="/"
             >Play
@@ -34,6 +35,7 @@ function NavMenu() {
             className="nav-link"
             exact
             to="/about"
+            onClick = {handleClick}
             >About
             </Link>
             </div>
